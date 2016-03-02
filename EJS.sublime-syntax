@@ -1,0 +1,23 @@
+%YAML1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: EJS
+file_extensions:
+  - ejs
+scope: text.html.ejs
+contexts:
+  main:
+    - include: scope:text.html.basic
+    - match: '(<%(-|=)?)'
+      captures:
+        1: punctuation.definition.embedded.begin.ejs
+      push:
+        - meta_content_scope: source.js.embedded.ejs
+        - include: 'scope:source.js'
+      with_prototype:
+        - match: '(?=%>)'
+          pop: true
+    - match: '(%>)'
+      captures:
+        1: punctuation.definition.embedded.end.ejs
+      pop: true
